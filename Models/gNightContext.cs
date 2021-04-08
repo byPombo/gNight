@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using gNight.Models;
 
 namespace gNight.Models
 {
@@ -10,5 +11,7 @@ namespace gNight.Models
         }
         
         public DbSet<Product> Products { get; set; }
+        
+        public DbSet<gNight.Models.User> User { get; set; }
     }
 }
