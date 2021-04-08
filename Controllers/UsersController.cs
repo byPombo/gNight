@@ -9,49 +9,49 @@ using gNight.Models;
 
 namespace gNight.Controllers
 {
-    [Route("api/products")]
+    [Route("api/Users")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly gNightContext _context;
 
-        public ProductsController(gNightContext context)
+        public UsersController(gNightContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.User.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(long id)
+        public async Task<ActionResult<User>> GetUser(long id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var user = await _context.User.FindAsync(id);
 
-            if (product == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return user;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(long id, Product product)
+        public async Task<IActionResult> PutUser(long id, User user)
         {
-            if (id != product.Id)
+            if (id != user.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace gNight.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace gNight.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Products.Add(product);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProduct), new {id = product.Id }, product);
+            return CreatedAtAction(nameof(GetUser), new { id = user.id }, user);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(long id)
+        public async Task<IActionResult> DeleteUser(long id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var user = await _context.User.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProductExists(long id)
+        private bool UserExists(long id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.User.Any(e => e.id == id);
         }
     }
 }
